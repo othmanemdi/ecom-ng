@@ -1,0 +1,23 @@
+PUBLIC
+    BODY
+        NAV
+        FOOTER
+    PAGES
+        HOME
+        SHOP
+        PRODUCT-DETAILS
+        CART
+        PROCEED-CHECKOUT
+        THANK-YOU
+        CONTACT
+    AUTH
+        LOGIN
+        REGISTER
+
+ADMIN
+    BODY
+        NAV
+    PAGES
+        CATEGORIES
+        COLORS
+        PRODUCTS
