@@ -1,0 +1,208 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin">Tableu de bord</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Liste produits</li>
+    </ol>
+</nav>
+
+<h4 class="fw-bold mb-3">Liste produits</h4>
+
+<div class="card shadow">
+    <div class="card-header">
+        <h6 class="fw-bold">
+            Liste produits
+        </h6>
+    </div>
+    <!-- card-header -->
+    <div class="card-body">
+
+
+        <button type="button" class="btn btn-primary mb-3 fw-bold" (click)="open_modal_add()">
+            Ajouter produits
+        </button>
+
+        <div class="modal fade" id="add_product" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Ajouter produit</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form [formGroup]="formAdd" (submit)="onAddProduct()">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom:</label>
+                                <input formControlName="name" type="text" class="form-control" id="name"
+                                    placeholder="Nom">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <input formControlName="description" type="text" class="form-control" id="description"
+                                    placeholder="Description">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Prix:</label>
+                                <input formControlName="price" type="number" class="form-control" id="price"
+                                    placeholder="Prix">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">Photo:</label>
+                                <input formControlName="photo" type="number" class="form-control" id="photo"
+                                    placeholder="Photo">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Catégories:</label>
+
+                                <select formControlName="category" class="form-select" id="category">
+                                    <!-- <option [ngValue]="null" disabled>Choose your category</option> -->
+                                    <option *ngFor="let c of categories" [ngValue]="c">
+                                        {{ c.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" id="add_product_close" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="update_product" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Modifier produit</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form [formGroup]="formUpdate" (submit)="onUpdateProduct()">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nom:</label>
+                                <input formControlName="name" type="text" class="form-control" id="name" placeholder="">
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label for="description" class="form-label">Description:</label>
+                                <input formControlName="description" type="text" class="form-control" id="description"
+                                    placeholder="">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="price" class="form-label">Prix:</label>
+                                <input formControlName="price" type="number" class="form-control" id="price"
+                                    placeholder="">
+                            </div>
+
+
+
+
+
+                            <div class="mb-3">
+                                <label for="category" class="form-label">Catégories:</label>
+
+                                <select formControlName="category" class="form-select" id="category">
+                                    <!-- <option [ngValue]="null" disabled>Choose your category</option> -->
+                                    <option *ngFor="let c of categories" [ngValue]="c">
+                                        {{ c.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="photo" class="form-label">Photo:</label>
+                                <input (change)="onSelectedFile($event)" type="file" class="form-control" id="photo">
+                            </div>
+
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <input type="hidden" formControlName="id" id="id">
+                            <input type="hidden" formControlName="photo" id="photo">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            <button type="submit" class="btn btn-dark">Modifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="delete_product" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Supprimer produit</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-danger fw-bold">
+                            Voulez vous vraiment supprimer <span id="product_name"></span> ?
+                        </h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-danger" (click)="onDeleteProduct()">Supprimer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification for no produits -->
+
+        <div *ngIf="products?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+            <div class="alert alert-info" role="alert">
+                <h4 class="alert-heading">NO CATEGORIES!</h4>
+                <p>No Categories were found.</p>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Img</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Prix</th>
+                    <th>Categorie</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of products">
+                    <th>{{ p.id }}</th>
+                    <th>
+                        <img width="30" [src]="this.productService.API_URL+'/products/photo/'+p.id" />
+                    </th>
+                    <td>{{ p.name }}</td>
+                    <td>{{ p.description }}</td>
+                    <td>{{ p.price | number:'0.00' }} DH</td>
+                    <td>{{ p.category.name }}</td>
+                    <td>
+                        <a (click)="open_modal_update(p)" class="btn btn-sm btn-dark me-2">Modifier</a>
+                        <a (click)="open_modal_delete(p)" class="btn btn-sm btn-danger">Supprimer</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <!-- card-body -->
+</div>
+<!-- card -->

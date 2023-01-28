@@ -5,17 +5,21 @@ import { HomeComponent } from './home/home.component';
 import { ShopComponent } from './shop/shop.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { RouterModule } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     PublicComponent,
     HomeComponent,
-    ShopComponent
+    ShopComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
     AppRoutingModule,
     RouterModule,
+    ReactiveFormsModule,
   ]
 })
 export class PublicModule { }

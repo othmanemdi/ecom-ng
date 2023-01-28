@@ -1,0 +1,95 @@
+<button type="button" class="btn btn-primary mb-3 fw-bold" (click)="open_modal_add()">
+    Ajouter couleurs
+</button>
+
+<div class="modal fade" id="add_color" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Ajouter couleur</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="formAdd" (submit)="onAddColor()">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom:</label>
+                        <input formControlName="name" type="text" class="form-control" id="name" placeholder="">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="update_color" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Modifier couleur</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="formUpdate" (submit)="onUpdateColor()">
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nom:</label>
+                        <input formControlName="name" type="text" class="form-control" id="name"
+                            placeholder="EX: Téléphone">
+                        <input type="hidden" formControlName="id" id="id">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-dark">Modifier</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="delete_color" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Supprimer couleur</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h5 class="text-danger fw-bold">
+                    Voulez vous vraiment supprimer <span id="color_name"></span> ?
+                </h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="submit" class="btn btn-danger" (click)="onDeleteColor()">Supprimer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered table-sm table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let c of colors">
+            <th>{{ c.id }}</th>
+            <td>{{ c.name }}</td>
+            <td>
+                <a class="btn btn-sm btn-dark me-2" (click)="open_modal_update(c)">Modifier</a>
+                <a class="btn btn-sm btn-danger" (click)="open_modal_delete(c)">Supprimer</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
